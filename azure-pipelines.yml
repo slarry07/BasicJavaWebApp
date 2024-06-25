@@ -5,20 +5,30 @@
 
 trigger:
 - main
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
 
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: 'b01f618b-6bf9-4e92-bc72-4a6515175c4c'
+  azureSubscription: 'b8168720-133c-4716-ba6b-22133b39f543'
 
   # Web app name
-  webAppName: 'app0021'
+  webAppName: 'javaweb001'
 
   # Environment name
-  environmentName: 'app0021'
+  environmentName: 'javaweb001'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  vmImageName: 'javaweb001'
 
 stages:
 - stage: Build
@@ -60,7 +70,7 @@ stages:
         deploy:
           steps:
           - task: AzureWebApp@1
-            displayName: 'Azure Web App Deploy: app90888'
+            displayName: 'Azure Web App Deploy: javaweb001'
             inputs:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
